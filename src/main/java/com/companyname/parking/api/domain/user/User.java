@@ -100,7 +100,7 @@ public class User extends AbstractAuditingEntity implements UserDetails {
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     @BatchSize(size = 20)
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
     @OneToOne(mappedBy = "ownedAccount")
     private ParkingSpot parkingSpot;

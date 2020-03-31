@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class ParkingSpotResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new parkingSpotDTO, or with status 400 (Bad Request) if the parkingSpot has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/parking-spots")
+    @PostMapping(path = "/parking-spots", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<ParkingSpotDTO> createParkingSpot(@Valid @RequestBody ParkingSpotDTO parkingSpotDTO) throws URISyntaxException {
         log.debug("REST request to save ParkingSpot : {}", parkingSpotDTO);
@@ -73,7 +74,7 @@ public class ParkingSpotResource {
      * or with status 500 (Internal Server Error) if the parkingSpotDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/parking-spots")
+    @PutMapping(path = "/parking-spots", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<ParkingSpotDTO> updateParkingSpot(@Valid @RequestBody ParkingSpotDTO parkingSpotDTO) throws URISyntaxException {
         log.debug("REST request to update ParkingSpot : {}", parkingSpotDTO);
@@ -92,7 +93,7 @@ public class ParkingSpotResource {
      * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of parkingSpots in body
      */
-    @GetMapping("/parking-spots")
+    @GetMapping(path = "/parking-spots", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<List<ParkingSpotDTO>> getAllParkingSpots(ParkingSpotCriteria criteria, Pageable pageable) {
         log.debug("REST request to get ParkingSpots by criteria: {}", criteria);
@@ -107,7 +108,7 @@ public class ParkingSpotResource {
      * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the count in body
      */
-    @GetMapping("/parking-spots/count")
+    @GetMapping(path = "/parking-spots/count", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAnyRole(\"" + AuthoritiesConstants.USER + "\", \"" + AuthoritiesConstants.GATE + "\")")
     public ResponseEntity<Long> countParkingSpots(ParkingSpotCriteria criteria) {
         log.debug("REST request to count ParkingSpots by criteria: {}", criteria);
@@ -120,7 +121,7 @@ public class ParkingSpotResource {
      * @param id the id of the parkingSpotDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the parkingSpotDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/parking-spots/{id}")
+    @GetMapping(value = "/parking-spots/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<ParkingSpotDTO> getParkingSpot(@PathVariable Long id) {
         log.debug("REST request to get ParkingSpot : {}", id);

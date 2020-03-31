@@ -166,10 +166,24 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>UserResourceIntTests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -245,6 +259,25 @@
 				</dependencies>
 			</plugin>
 		</plugins>
-	</build>
+<!--		<pluginManagement>-->
+<!--			<plugins>-->
+<!--				<plugin>-->
+<!--					<groupId>org.apache.maven.plugins</groupId>-->
+<!--					<artifactId>maven-surefire-plugin</artifactId>-->
+<!--					<version>${maven-surefire-plugin.version}</version>-->
+<!--					<configuration>-->
+<!--						<includes>-->
+<!--							<include>**/*Tests.java</include>-->
+<!--						</includes>-->
+<!--						&lt;!&ndash; Force alphabetical order to have a reproducible build &ndash;&gt;-->
+<!--						<runOrder>alphabetical</runOrder>-->
+<!--						&lt;!&ndash; Fixes a bug which will be solved in next version after 2.22.1 then this can be removed &ndash;&gt;-->
+<!--						&lt;!&ndash; see: https://issues.apache.org/jira/browse/SUREFIRE-1588 &ndash;&gt;-->
+<!--						<useSystemClassLoader>false</useSystemClassLoader>-->
+<!--					</configuration>-->
+<!--				</plugin>-->
+<!--			</plugins>-->
+<!--		</pluginManagement>-->
+		</build>
 
 </project>

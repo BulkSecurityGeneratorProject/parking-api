@@ -32,7 +32,7 @@ public class ParkingSpot extends AbstractAuditingEntity {
     boolean isFree;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owned_account_id", referencedColumnName = "id")
+    @JoinColumn(name = "owned_account_id", referencedColumnName = "id", nullable = false)
     private User ownedAccount;
 
     public ParkingSpot freeUp() {
