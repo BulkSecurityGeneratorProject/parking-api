@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+management:
+  health:
+    mail:
+      enabled: false # When using the MailService, configure an SMTP server and set this to true
+  metrics:
+    web:
+      server:
+        auto-time-requests: true
+    enable:
+      jvm: true
+      process:
+        cpu: true
+      logback: true
+      uptime: true
+
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-exclude: .h2.server.properties
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:./target/h2db/db/parkingapi
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+  liquibase:
+    change-log: classpath:/config/liquibase/master.xml
+
+
+application:
+  async:
+    core-pool-size: 2
+    max-pool-size: 50
+    queue-capacity: 10000
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "Authorization,Link,X-Total-Count"
+    allow-credentials: true
+    max-age: 1800
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: ZDFiOTdjYWY3YThjMjM5ZTQ5NTFiMWI3N2U1ZjEwYTE2NDljYjAzMTQyNWE2MDdlMDQwN2MyMjg5NDAyNWMzMTBjMzQ3NjQ0YTBiYWUzNmE0ODA4Y2Y5Yjk0OTk3NTA5NTk3NmMyNTM3MzdiZjc2M2VlZTIyMWZkNGZlOTVhODQ=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+  mail:
+    from: parking.api@localhost
+    base-url: http://127.0.0.1:8081
+  swagger:
+    default-include-pattern: /api/.*
+    title: parking API
+    description: parking API documentation
+    version: 0.0.1
+    terms-of-service-url:
+    contact-name:
+    contact-url:
+    contact-email:
+    license:
+    license-url:
